@@ -4,6 +4,6 @@
 
 ```json
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
 ```
