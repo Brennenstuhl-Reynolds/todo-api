@@ -1,26 +1,26 @@
-const fs = require('fs')
-const filePath = 'src/data.json'
-
-let data = {}
-
-fs.readFile(filePath, (error, content) => {
-  if (error) throw error
-  data = JSON.parse(content)
-})
-
-function getData() {
-  return data
+let data = {
+  students: [
+    { id: 1, name: 'Tobi', version: 1 },
+    { id: 2, name: 'Ella', version: 1 },
+    { id: 3, name: 'Klaus', version: 1 },
+    { id: 4, name: 'Martina', version: 1 }
+  ]
 }
 
-function getFreshData(onSuccess) {
-  fs.readFile(filePath, (error, content) => {
-    if (error) throw error
-    onSuccess(JSON.parse(content))
-  })
+function get(entity) {
+  return data[entity]
+}
+
+function find(entity, id) {
+  return data[entity].find(e => e.id === id)
+}
+
+function insert(entity, row) {
+  data[entity].push(row)
 }
 
 module.exports = {
-  data,
-  getData,
-  getFreshData
+  get,
+  find,
+  insert
 }

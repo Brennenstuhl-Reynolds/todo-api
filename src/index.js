@@ -1,22 +1,27 @@
-const { data, getData, getFreshData } = require('./data-access')
+const { get, find, insert } = require('./data-access')
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 const port = 3000
 
-app.get('/students', (req, res) => {
-  const fresh = req.query['fresh'] != undefined
+app.use(bodyParser.json())
 
-  if (fresh) {
-    getFreshData(data => {
-      res.send(data)
-    })
-  } else {
-    res.send(getData())
-  }
+app.get('/students', (req, res) => {
+  res.send(get('students'))
 })
 
-app.get('/non-closure-students', (req, res) => {
-  res.send(data)
+app.get('/students/:id', (req, res) => {
+  const student = find('students', Number(req.params.id))
+  if (!student) {
+    res.statusCode = 404
+  }
+  res.send(student)
+})
+
+app.post('/students', (req, res) => {
+  insert('students', req.body)
+  res.statusCode = 204
+  res.send()
 })
 
 app.listen(port, () => {
