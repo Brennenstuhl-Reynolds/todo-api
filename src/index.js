@@ -1,16 +1,16 @@
-const { get, find, insert } = require('./data-access')
+const { get, find, insert, update, delete: $delete } = require('./data-access')
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 3001
 
 app.use(bodyParser.json())
 
-app.get('/todos', (req, res) => {
+app.get('/api/todos', (req, res) => {
 	res.send(get('todos'))
 })
 
-app.get('/todos/:id', (req, res) => {
+app.get('/api/todos/:id', (req, res) => {
 	const student = find('todos', Number(req.params.id))
 	if (!student) {
 		res.statusCode = 404
@@ -18,8 +18,28 @@ app.get('/todos/:id', (req, res) => {
 	res.send(student)
 })
 
-app.post('/todos', (req, res) => {
+app.post('/api/todos', (req, res) => {
 	insert('todos', req.body)
+	res.statusCode = 204
+	res.send()
+})
+
+app.put('/api/todos/:id', (req, res) => {
+	const student = find('todos', Number(req.params.id))
+	if (!student) {
+		res.statusCode = 404
+	}
+	update('todos', Number(req.params.id), req.body)
+	res.statusCode = 204
+	res.send()
+})
+
+app.delete('/api/todos/:id', (req, res) => {
+	const student = find('todos', Number(req.params.id))
+	if (!student) {
+		res.statusCode = 404
+	}
+	$delete('todos', Number(req.params.id))
 	res.statusCode = 204
 	res.send()
 })

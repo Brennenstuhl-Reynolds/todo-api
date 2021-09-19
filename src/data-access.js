@@ -19,8 +19,20 @@ function insert(entity, row) {
 	data[entity].push(row)
 }
 
+function $delete(entity, id) {
+	const index = data[entity].indexOf(data[entity].find(e => e.id === id))
+	data[entity].splice(index, 1)
+}
+
+function update(entity, id, row) {
+	const index = data[entity].indexOf(data[entity].find(e => e.id === id))
+	data[entity][index] = row;
+}
+
 module.exports = {
 	get,
 	find,
-	insert
+	insert,
+	delete: $delete,
+	update
 }
