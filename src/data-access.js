@@ -8,11 +8,11 @@ let data = {
 			status: 1 ,
 			finishedDate: new Date(),
 			createdDate: new Date()	},
-		{ 	id: 2, // due next week
+		{ 	id: 2, // due some time
 			title: 'Wäsche waschen',
 			description: '60°, 30°',
-			importance: 5,
-			dueDate: new Date('2021-10-01'),
+			importance: 2,
+			dueDate: new Date('2021-10-20'),
 			status: 1 ,
 			finishedDate: null,
 			createdDate: new Date()	},
@@ -27,7 +27,7 @@ let data = {
 		{ 	id: 4, // Overdue
 			title: 'Abfall leeren',
 			description: 'Recycling zeugs nicht vergessen',
-			importance: 5,
+			importance: 4,
 			dueDate: new Date('2021-09-01'),
 			status: 1 ,
 			finishedDate: null,
