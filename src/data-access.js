@@ -1,6 +1,8 @@
+const { v4: uuidv4 } = require('uuid');
+
 let data = {
 	todos: [
-		{ 	id: 1, // no due date + finished
+		{ 	id: "1", // no due date + finished
 			title: 'Einkaufen',
 			description: 'Abfallsäcke',
 			importance: 5,
@@ -8,7 +10,7 @@ let data = {
 			status: 1 ,
 			finishedDate: new Date(),
 			createdDate: new Date()	},
-		{ 	id: 2, // due some time
+		{ 	id: "2", // due some time
 			title: 'Wäsche waschen',
 			description: '60°, 30°',
 			importance: 2,
@@ -16,7 +18,7 @@ let data = {
 			status: 1 ,
 			finishedDate: null,
 			createdDate: new Date()	},
-		{ 	id: 3, // due today
+		{ 	id: "3", // due today
 			title: 'Wohnung aufräumen',
 			description: 'Besuch kommt!',
 			importance: 5,
@@ -24,7 +26,7 @@ let data = {
 			status: 1 ,
 			finishedDate: null,
 			createdDate: new Date()	},
-		{ 	id: 4, // Overdue
+		{ 	id: "4", // Overdue
 			title: 'Abfall leeren',
 			description: 'Recycling zeugs nicht vergessen',
 			importance: 4,
@@ -44,7 +46,9 @@ function find(entity, id) {
 }
 
 function insert(entity, row) {
+	row.id = uuidv4();
 	data[entity].push(row)
+	return row;
 }
 
 function $delete(entity, id) {
@@ -55,6 +59,7 @@ function $delete(entity, id) {
 function update(entity, id, row) {
 	const index = data[entity].indexOf(data[entity].find(e => e.id === id))
 	data[entity][index] = row;
+	return data[entity][index];
 }
 
 module.exports = {
